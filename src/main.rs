@@ -6,5 +6,7 @@ use proconio::fastout;
 #[fastout]
 #[allow(non_snake_case)]
 fn main() {
-    println!("Nya");
+    input! {
+        ,
+    }
 }
