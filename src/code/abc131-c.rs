@@ -4,20 +4,16 @@ use proconio::input;
 use proconio::fastout;
 use num::integer::lcm;
 
-#[allow(non_snake_case)]
-fn f(x: usize, c: usize, d: usize, l: usize) -> usize {
-    return x - (x / c) - (x / d) + (x / l);
+fn f(x: usize, c: usize, d: usize) -> usize {
+    let lcm = lcm(c, d);
+    return x - (x / c + x / d - x / lcm);
 }
 
 #[fastout]
 #[allow(non_snake_case)]
 fn main() {
     input! {
-        A: usize,
-        B: usize,
-        C: usize,
-        D: usize,
+        (A, B, C, D): (usize, usize, usize, usize),
     }
-    let l = lcm(C, D);
-    println!("{}", f(B, C, D, l) - f(A - 1, C, D, l));
+    println!("{}", f(B, C, D) - f(A-1, C, D));
 }
