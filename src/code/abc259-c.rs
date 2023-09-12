@@ -7,49 +7,50 @@ use proconio::fastout;
 #[allow(non_snake_case)]
 fn main() {
     input! {
-        S: String,
-        T: String,
+        (S, T): (String, String),
     }
     let N = S.len();
     let M = T.len();
     let S = S.chars().collect::<Vec<char>>();
     let T = T.chars().collect::<Vec<char>>();
-    let mut vecs = Vec::new();
-    let mut vect = Vec::new();
+    let mut cnts = Vec::new();
     let mut cnt = 1;
+    let mut l = 0;
     for i in 1..N {
-        if S[i-1] != S[i] {
-            vecs.push((S[i-1], cnt));
+        if S[l] != S[i] {
+            cnts.push((S[l], cnt));
             cnt = 0;
+            l = i;
         }
         cnt += 1;
     }
-    vecs.push((S[N-1], cnt));
+    cnts.push((S[l], cnt));
+    let mut cntt = Vec::new();
     let mut cnt = 1;
+    let mut l = 0;
     for i in 1..M {
-        if T[i-1] != T[i] {
-            vect.push((T[i-1], cnt));
+        if T[l] != T[i] {
+            cntt.push((T[l], cnt));
             cnt = 0;
+            l = i;
         }
         cnt += 1;
     }
-    vect.push((T[M-1], cnt));
-    if vecs.len() != vect.len() {
+    cntt.push((T[l], cnt));
+    if cnts.len() != cntt.len() {
         println!("No");
         return;
     }
-    let N = vecs.len();
-    let mut ans = "Yes";
+    let N = cnts.len();
     for i in 0..N {
-        if vecs[i].0 != vect[i].0 {
-            ans = "No";
+        if cnts[i].0 != cntt[i].0 {
+            println!("No");
+            return;
         }
-        if vecs[i].1 > vect[i].1 {
-            ans = "No";
-        }
-        if vecs[i].1 < vect[i].1 && vecs[i].1 == 1 {
-            ans = "No";
+        if cnts[i].1 > cntt[i].1 || (cnts[i].1 == 1 && cntt[i].1 > 1) {
+            println!("No");
+            return;
         }
     }
-    println!("{}", ans);
+    println!("Yes");
 }

@@ -18,20 +18,19 @@ fn bisect_left<T: Ord>(vec: &[T], v: &T) -> usize {
 #[allow(non_snake_case)]
 fn main() {
     input! {
-        N: usize,
-        Q: usize,
+        (N, Q): (usize, usize),
         A: [usize; N],
     }
-    let mut cnt = vec![0; N+1];
-    cnt[1] = A[0] - 1;
+    let mut cnt = vec![0; N];
+    cnt[0] = A[0] - 1;
     for i in 1..N {
-        cnt[i+1] = cnt[i] + (A[i] - A[i-1] - 1);
+        cnt[i] = cnt[i-1] + (A[i] - A[i-1]) - 1;
     }
     for _ in 0..Q {
         input! {
             K: usize,
         }
         let idx = bisect_left(&cnt, &K);
-        println!("{}", idx - 1 + K);
+        println!("{}", K + idx);
     }
 }

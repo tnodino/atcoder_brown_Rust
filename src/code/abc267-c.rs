@@ -8,22 +8,21 @@ use std::cmp::max;
 #[allow(non_snake_case)]
 fn main() {
     input! {
-        N: usize,
-        M: usize,
+        (N, M): (usize, usize),
         A: [isize; N],
     }
     let mut res = 0;
-    let mut s = 0;
+    let mut sum = 0;
     for i in 0..M {
-        res += A[i] * (i as isize + 1);
-        s += A[i];
+        res += A[i] * (i + 1) as isize;
+        sum += A[i];
     }
     let mut ans = res;
     for i in M..N {
-        res -= s;
-        res += A[i] * (M as isize);
-        s -= A[i-M];
-        s += A[i];
+        res -= sum;
+        sum -= A[i-M];
+        res += A[i] * M as isize;
+        sum += A[i];
         ans = max(ans, res);
     }
     println!("{}", ans);

@@ -13,34 +13,30 @@ fn main() {
     let mut map = BTreeMap::new();
     for _ in 0..Q {
         input! {
-            query: usize,
+            q: usize,
         }
-        if query == 1 {
-            input! {
-                x: usize,
-            }
-            *map.entry(x).or_insert(0) += 1;
-        }
-        else if query == 2 {
-            input! {
-                x: usize,
-                c: usize,
-            }
-            if !map.contains_key(&x) {
-                continue;
-            }
-            let val = *map.get(&x).unwrap();
-            if val <= c {
-                map.remove(&x);
-            }
-            else {
-                *map.entry(x).or_insert(0) = val - c;
-            }
-        }
-        else {
-            let mi = *map.keys().next().unwrap();
-            let ma = *map.keys().last().unwrap();
-            println!("{}", ma - mi);
+        match q {
+            1 => {
+                input! {
+                    x: usize,
+                }
+                *map.entry(x).or_insert(0) += 1;
+            },
+            2 => {
+                input! {
+                    (x, c): (usize, isize),
+                }
+                *map.entry(x).or_insert(0) -= c;
+                if map[&x] <= 0 {
+                    map.remove(&x);
+                }
+            },
+            3 => {
+                let mi = *map.keys().next().unwrap();
+                let ma = *map.keys().last().unwrap();
+                println!("{}", ma - mi);
+            },
+            _ => {},
         }
     }
 }
