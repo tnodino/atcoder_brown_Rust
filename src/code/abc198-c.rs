@@ -8,18 +8,16 @@ use libm::hypot;
 #[allow(non_snake_case)]
 fn main() {
     input! {
-        R: f64,
-        X: f64,
-        Y: f64,
+        (R, X, Y): (f64, f64, f64),
     }
-    let d = hypot(X, Y);
-    if d == R {
+    let dist = hypot(X, Y);
+    if dist == R {
         println!("1");
     }
-    else if d <= R * 2. {
+    else if dist <= R * 2. {
         println!("2");
     }
     else {
-        println!("{}", (d / R + 0.999999) as usize);
+        println!("{}", ((dist / R).ceil()));
     }
 }

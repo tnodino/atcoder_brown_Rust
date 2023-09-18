@@ -7,15 +7,13 @@ use proconio::fastout;
 #[allow(non_snake_case)]
 fn main() {
     input! {
-        N: usize,
-        X: usize,
+        (N, X): (usize, usize),
     }
     let mut DP = vec![vec![false; X+1]; N+1];
     DP[0][0] = true;
     for i in 0..N {
         input! {
-            a: usize,
-            b: usize,
+            (a, b): (usize, usize),
         }
         for j in 0..=X {
             if j + a <= X {
@@ -26,10 +24,8 @@ fn main() {
             }
         }
     }
-    if DP[N][X] {
-        println!("Yes");
-    }
-    else {
-        println!("No");
-    }
+    println!("{}", match DP[N][X] {
+        true => "Yes",
+        false => "No",
+    })
 }
