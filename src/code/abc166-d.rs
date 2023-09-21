@@ -10,10 +10,11 @@ fn main() {
     input! {
         X: isize,
     }
-    for A in -120..=120 {
-        for B in -120..=120 {
-            if pow(A, 5) - pow(B, 5) == X {
-                println!("{} {}", A, B);
+    let N = 200;
+    for a in -N..N {
+        for b in -N..N {
+            if pow(a, 5) - pow(b, 5) == X {
+                println!("{} {}", a, b);
                 return;
             }
         }
